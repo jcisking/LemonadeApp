@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LemonApp() {
-
     var currentNumber by remember { mutableStateOf(1) }
+
     val currentImage = when(currentNumber) {
         1 -> R.drawable.lemon_tree
         2 -> R.drawable.lemon_squeeze
@@ -52,6 +52,15 @@ fun LemonApp() {
         else -> R.string.EmptyGlassInstructions
     }
 
+
+    var i = 0
+    var clickableLogic = {
+        if (currentNumber == 4)
+            currentNumber = 1
+        else currentNumber++
+
+    }
+
     Column( horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize())
@@ -59,7 +68,20 @@ fun LemonApp() {
         Text(modifier = Modifier.padding(bottom = 15.dp) ,
             text = stringResource(id = currentText))
         Image(painter = painterResource(id = currentImage),
-            modifier = Modifier.clickable {if (currentNumber == 4) currentNumber = 1 else currentNumber++},
+            modifier = Modifier.clickable {
+                if (currentNumber == 2){
+                    var randomNumber = (2..4).random()
+                    if (i  <= randomNumber){
+                        i++
+                    }
+                    else {
+                    currentNumber = 3
+                    }
+                }
+                else {
+                    clickableLogic()
+                }
+                                          },
             contentDescription = stringResource(
                 id = R.string.LemonTreeDescription))
     }
