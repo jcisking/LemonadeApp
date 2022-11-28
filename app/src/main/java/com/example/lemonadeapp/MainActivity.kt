@@ -32,11 +32,14 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
+@Composable
+fun LemonApp() {
+    LemonTextAndImage(columnModifier = Modifier.fillMaxSize(), textModifier = Modifier.padding(bottom = 15.dp))
+}
 
 
 @Composable
-fun LemonApp() {
+fun LemonTextAndImage(columnModifier: Modifier, textModifier: Modifier) {
     var currentNumber by remember { mutableStateOf(1) }
 
     val currentImage = when(currentNumber) {
@@ -53,7 +56,7 @@ fun LemonApp() {
     }
 
 
-    var i = 0
+    var i = 1
     var clickableLogic = {
         if (currentNumber == 4)
             currentNumber = 1
@@ -63,9 +66,9 @@ fun LemonApp() {
 
     Column( horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize())
+        modifier = columnModifier)
     {
-        Text(modifier = Modifier.padding(bottom = 15.dp) ,
+        Text(modifier = textModifier,
             text = stringResource(id = currentText))
         Image(painter = painterResource(id = currentImage),
             modifier = Modifier.clickable {
@@ -89,32 +92,9 @@ fun LemonApp() {
 
 
 }
-@Composable
-fun LemonTreeWithText(){
-    Column( horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()) {
-        Text(modifier = Modifier.padding(bottom = 15.dp) ,
-            text = stringResource(id = R.string.LemonTreeInstructions))
-        Image(painter = painterResource(id = R.drawable.lemon_tree),
-            modifier = Modifier.clickable { },
-            contentDescription = stringResource(
-                id = R.string.LemonTreeDescription))
-    }
-}
 
-@Composable
-fun LemonWithText(){
-    Column( horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()) {
-        Text(modifier = Modifier.padding(bottom = 15.dp) ,
-            text = stringResource(id = R.string.LemonInstructions))
-        Image(painter = painterResource(id = R.drawable.lemon_squeeze),
-            contentDescription = stringResource(
-                id = R.string.LemonTreeDescription))
-    }
-}
+
+
 
 
 
